@@ -63,7 +63,7 @@ function jl_zmq_error_str()
     errno = zmq_errno()
     c_strerror = ccall ((:zmq_strerror, zmq), Ptr{UInt8}, (Cint,), errno)
     if c_strerror != C_NULL
-        strerror = Compat.unsafe_string(c_strerror)
+        strerror = unsafe_string(c_strerror)
         return strerror
     else
         return "Unknown error"
@@ -317,7 +317,7 @@ for (fset, fget, k) in [
             if rc != 0
                 throw(StateError(jl_zmq_error_str()))
             end
-            return Compat.unsafe_string(unsafe_convert(Ptr{UInt8}, $u8ap), @compat Int(($sz)[1]))
+            return unsafe_string(unsafe_convert(Ptr{UInt8}, $u8ap), @compat Int(($sz)[1]))
         end
     end
 end
