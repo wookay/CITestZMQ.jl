@@ -50,9 +50,9 @@ ZMQ.bind(s1, "tcp://*:5555")
 ZMQ.connect(s2, "tcp://localhost:5555")
 
 ZMQ.send(s2, Message("test request"))
-@assert (ZMQ.unsafe_string(ZMQ.recv(s1)) == "test request")
+@assert (unsafe_string(ZMQ.recv(s1)) == "test request")
 ZMQ.send(s1, Message("test response"))
-@assert (ZMQ.unsafe_string(ZMQ.recv(s2)) == "test response")
+@assert (unsafe_string(ZMQ.recv(s2)) == "test response")
 
 # Test task-blocking behavior
 c = Base.Condition()
@@ -62,13 +62,13 @@ msg_sent = false
 	sleep(0.5)
 	msg_sent = true
 	ZMQ.send(s2, Message("test request"))
-	@assert (ZMQ.unsafe_string(ZMQ.recv(s2)) == "test response")
+	@assert (unsafe_string(ZMQ.recv(s2)) == "test response")
 	notify(c)
 end
 
 # This will hang forver if ZMQ blocks the entire process since
 # we'll never switch to the other task
-@assert (ZMQ.unsafe_string(ZMQ.recv(s1)) == "test request")
+@assert (unsafe_string(ZMQ.recv(s1)) == "test request")
 @assert msg_sent == true
 ZMQ.send(s1, Message("test response"))
 wait(c)

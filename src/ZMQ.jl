@@ -4,7 +4,7 @@ VERSION >= v"0.4.0-dev+6521" && __precompile__(true)
 
 module ZMQ
 using Compat
-import Compat.String
+import Compat: String, unsafe_string
 if VERSION >= v"0.4.0-dev+3710"
     import Base.unsafe_convert
 else
@@ -451,9 +451,6 @@ function setindex!(a::Message, v, i::Integer)
 end
 
 # Convert message to string (copies data)
-if VERSION >= v"0.5.0-dev+4594" # Julia PR 16731
-    import Base: unsafe_string
-end
 unsafe_string(zmsg::Message) = Compat.unsafe_string(pointer(zmsg), length(zmsg))
 @deprecate bytestring(zmsg::Message) unsafe_string(zmsg::Message)
 
