@@ -43,7 +43,7 @@ export
     #Types
     StateError,Context,Socket,Message,
     #functions
-    set, subscribe, unsubscribe,
+    set, subscribe, unsubscribe, unsafe_string,
     #Constants
     IO_THREADS,MAX_SOCKETS,PAIR,PUB,SUB,REQ,REP,ROUTER,DEALER,PULL,PUSH,XPUB,XSUB,XREQ,XREP,UPSTREAM,DOWNSTREAM,MORE,POLLIN,POLLOUT,POLLERR,STREAMER,FORWARDER,QUEUE,SNDMORE
 const SNDMORE = true
@@ -451,6 +451,9 @@ function setindex!(a::Message, v, i::Integer)
 end
 
 # Convert message to string (copies data)
+if VERSION >= v"0.5.0-dev+4594" # Julia PR 16731
+    import Base: unsafe_string
+end
 unsafe_string(zmsg::Message) = Compat.unsafe_string(pointer(zmsg), length(zmsg))
 @deprecate bytestring(zmsg::Message) unsafe_string(zmsg::Message)
 
