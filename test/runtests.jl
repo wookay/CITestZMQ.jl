@@ -83,10 +83,10 @@ ZMQ.close(s1)
 ZMQ.close(s2)
 ZMQ.close(ctx2)
 
-# deprecated bytestring(::Message)
+# deprecate bytestring(::Message)
 let olderr = STDERR
    rderr, wrerr = redirect_stderr()
-   @assert bytestring(Message("deprecated")) == "deprecated"
+   @assert bytestring(Message("hello")) == "hello"
    redirect_stderr(olderr)
    close(wrerr)
    @assert contains(readstring(rderr), "WARNING: bytestring(zmsg::Message) is deprecated")
