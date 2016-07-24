@@ -33,6 +33,10 @@ install:
 
 build_script:
 # Need to convert from shallow to complete for Pkg.clone to work
+  - cd ..
+  - git clone https://github.com/wookay/CITestZMQ.jl.git ZMQ.jl
+  - cd ZMQ.jl
+  
   - IF EXIST .git\shallow (git fetch --unshallow)
   - C:\projects\julia\bin\julia -F -e "versioninfo();
       Pkg.clone(pwd(), \"ZMQ\"); Pkg.build(\"ZMQ\")"

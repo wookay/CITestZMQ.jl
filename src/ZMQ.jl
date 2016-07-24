@@ -451,11 +451,8 @@ function setindex!(a::Message, v, i::Integer)
 end
 
 # Convert message to string (copies data)
-if VERSION >= v"0.5.0-dev+4594" # Julia PR 16731
-    import Base: unsafe_string
-end
 unsafe_string(zmsg::Message) = Compat.unsafe_string(pointer(zmsg), length(zmsg))
-@deprecate bytestring(zmsg::Message) unsafe_string(pointer(zmsg), length(zmsg))
+@deprecate bytestring(zmsg::Message) Compat.unsafe_string(pointer(zmsg), length(zmsg))
 
 # Build an IOStream from a message
 # Copies the data
