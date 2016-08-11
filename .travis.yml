@@ -9,8 +9,11 @@ julia:
 notifications:
     email: false
 before_install:
+  #- cd ..
+  #- git clone https://github.com/wookay/CITestZMQ.jl.git ZMQ.jl
+  #- cd ZMQ.jl
   - cd ..
-  - git clone https://github.com/wookay/CITestZMQ.jl.git ZMQ.jl
+  - git clone -b versionup_bindeps https://github.com/wookay/ZMQ.jl.git ZMQ.jl
   - cd ZMQ.jl
 script:
   - julia -e 'Pkg.clone(pwd()); Pkg.build("ZMQ")'

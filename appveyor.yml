@@ -1,10 +1,10 @@
 environment:
   matrix:
-#  - JULIAVERSION: "julialang/bin/winnt/x86/0.3/julia-0.3-latest-win32.exe"
+  - JULIAVERSION: "julialang/bin/winnt/x86/0.3/julia-0.3-latest-win32.exe"
   - JULIAVERSION: "julialang/bin/winnt/x64/0.3/julia-0.3-latest-win64.exe"
-#  - JULIAVERSION: "julialang/bin/winnt/x86/0.4/julia-0.4-latest-win32.exe"
+  - JULIAVERSION: "julialang/bin/winnt/x86/0.4/julia-0.4-latest-win32.exe"
   - JULIAVERSION: "julialang/bin/winnt/x64/0.4/julia-0.4-latest-win64.exe"
-#  - JULIAVERSION: "julianightlies/bin/winnt/x86/julia-latest-win32.exe"
+  - JULIAVERSION: "julianightlies/bin/winnt/x86/julia-latest-win32.exe"
   - JULIAVERSION: "julianightlies/bin/winnt/x64/julia-latest-win64.exe"
 
 branches:
@@ -34,7 +34,7 @@ install:
 build_script:
 # Need to convert from shallow to complete for Pkg.clone to work
   - cd ..
-  - git clone https://github.com/wookay/CITestZMQ.jl.git ZMQ.jl
+  - git clone -b versionup_bindeps https://github.com/wookay/ZMQ.jl.git ZMQ.jl
   - cd ZMQ.jl
   
   - IF EXIST .git\shallow (git fetch --unshallow)
