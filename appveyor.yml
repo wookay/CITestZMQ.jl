@@ -34,6 +34,7 @@ install:
 build_script:
 # Need to convert from shallow to complete for Pkg.clone to work
 
+
   - cd ..
   - git clone -b versionup_bindeps https://github.com/wookay/ZMQ.jl.git ZMQ.jl
   - cd ZMQ.jl
